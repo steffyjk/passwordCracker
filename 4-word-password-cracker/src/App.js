@@ -4,15 +4,17 @@ const App = () => {
   // Predefined list of words
   const wordList = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew"];
 
-  // State to manage the target password and result
+  // State to manage the target password, result, and timer
   const [targetPassword, setTargetPassword] = useState("");
   const [result, setResult] = useState("");
   const [isCracking, setIsCracking] = useState(false);
+  const [timeElapsed, setTimeElapsed] = useState(0);
 
   // Function to simulate password cracking
   const crackPassword = () => {
     setIsCracking(true);
     setResult("");
+    setTimeElapsed(0);
 
     // Split the target password into words
     const targetWords = targetPassword.trim().toLowerCase().split(" ");
@@ -23,6 +25,12 @@ const App = () => {
       setIsCracking(false);
       return;
     }
+
+    // Start the timer
+    const startTime = Date.now();
+    const timer = setInterval(() => {
+      setTimeElapsed(Math.floor((Date.now() - startTime) / 1000));
+    }, 1000);
 
     // Simulate cracking by iterating through the word list
     let isCracked = false;
@@ -41,6 +49,7 @@ const App = () => {
               setTimeout(() => {
                 setResult(`Password cracked: ${attempt}`);
                 setIsCracking(false);
+                clearInterval(timer); // Stop the timer
               }, 100 * (i * wordList.length ** 3 + j * wordList.length ** 2 + k * wordList.length + l));
               isCracked = true;
               return;
@@ -55,6 +64,7 @@ const App = () => {
       setTimeout(() => {
         setResult("Password not found in the word list.");
         setIsCracking(false);
+        clearInterval(timer); // Stop the timer
       }, 100 * wordList.length ** 4);
     }
   };
@@ -125,6 +135,18 @@ const App = () => {
       >
         {result}
       </div>
+      {isCracking && (
+        <div
+          style={{
+            marginTop: "20px",
+            fontSize: "1.2rem",
+            color: "#00ffcc",
+            textShadow: "0 0 10px #00ffcc",
+          }}
+        >
+          ⏱️ Time Elapsed: {timeElapsed} seconds
+        </div>
+      )}
     </div>
   );
 };
