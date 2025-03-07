@@ -2,19 +2,23 @@ import React, { useState } from "react";
 
 const App = () => {
   // Predefined list of words
-  const wordList = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew"];
+  const wordList = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
-  // State to manage the target password, result, and timer
+  // State to manage the target password, result, timer, total time, and trials
   const [targetPassword, setTargetPassword] = useState("");
   const [result, setResult] = useState("");
   const [isCracking, setIsCracking] = useState(false);
   const [timeElapsed, setTimeElapsed] = useState(0);
+  const [totalTime, setTotalTime] = useState(null);
+  const [totalTrials, setTotalTrials] = useState(0);
 
   // Function to simulate password cracking
   const crackPassword = () => {
     setIsCracking(true);
     setResult("");
     setTimeElapsed(0);
+    setTotalTime(null);
+    setTotalTrials(0);
 
     // Split the target password into words
     const targetWords = targetPassword.trim().toLowerCase().split(" ");
@@ -34,10 +38,13 @@ const App = () => {
 
     // Simulate cracking by iterating through the word list
     let isCracked = false;
+    let trialCount = 0; // Counter for total trials
+
     for (let i = 0; i < wordList.length; i++) {
       for (let j = 0; j < wordList.length; j++) {
         for (let k = 0; k < wordList.length; k++) {
           for (let l = 0; l < wordList.length; l++) {
+            trialCount++; // Increment trial counter
             const attempt = `${wordList[i]} ${wordList[j]} ${wordList[k]} ${wordList[l]}`;
 
             // Simulate a delay to make it look like cracking is happening
@@ -47,9 +54,13 @@ const App = () => {
 
             if (attempt === targetPassword.toLowerCase()) {
               setTimeout(() => {
+                const endTime = Date.now();
+                const totalTimeTaken = Math.floor((endTime - startTime) / 1000);
                 setResult(`Password cracked: ${attempt}`);
                 setIsCracking(false);
                 clearInterval(timer); // Stop the timer
+                setTotalTime(totalTimeTaken); // Set total time
+                setTotalTrials(trialCount); // Set total trials
               }, 100 * (i * wordList.length ** 3 + j * wordList.length ** 2 + k * wordList.length + l));
               isCracked = true;
               return;
@@ -62,9 +73,13 @@ const App = () => {
     // If no match is found
     if (!isCracked) {
       setTimeout(() => {
+        const endTime = Date.now();
+        const totalTimeTaken = Math.floor((endTime - startTime) / 1000);
         setResult("Password not found in the word list.");
         setIsCracking(false);
         clearInterval(timer); // Stop the timer
+        setTotalTime(totalTimeTaken); // Set total time
+        setTotalTrials(trialCount); // Set total trials
       }, 100 * wordList.length ** 4);
     }
   };
@@ -90,7 +105,7 @@ const App = () => {
         type="text"
         value={targetPassword}
         onChange={(e) => setTargetPassword(e.target.value)}
-        placeholder="e.g., apple banana cherry date"
+        placeholder="e.g., 1 2 3 4"
         style={{
           width: "300px",
           padding: "10px",
@@ -145,6 +160,20 @@ const App = () => {
           }}
         >
           ⏱️ Time Elapsed: {timeElapsed} seconds
+        </div>
+      )}
+      {totalTime !== null && (
+        <div
+          style={{
+            marginTop: "20px",
+            fontSize: "1.2rem",
+            color: "#00ffcc",
+            textShadow: "0 0 10px #00ffcc",
+          }}
+        >
+          🕒 Total Time Taken: {totalTime} seconds
+          <br />
+          🔢 Total Trials: {totalTrials}
         </div>
       )}
     </div>
