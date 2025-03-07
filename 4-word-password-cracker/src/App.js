@@ -88,18 +88,31 @@ const App = () => {
     <div
       style={{
         padding: "20px",
-        fontFamily: "'Orbitron', sans-serif",
-        background: "linear-gradient(135deg, #1e1e2f, #2a2a40)",
-        color: "#00ffcc",
+        fontFamily: "'Courier New', monospace", // A font that fits the tech-western vibe
+        background: "linear-gradient(135deg, #7A4D3B, #A6C9E2)", // Brown to light blue gradient
+        color: "#F7D08A", // Cream text color
         minHeight: "100vh",
         textAlign: "center",
       }}
     >
-      <h1 style={{ fontSize: "3rem", marginBottom: "20px", textShadow: "0 0 10px #00ffcc" }}>
-        🚀 4-Word Password Cracker 🚀
+      <h1
+        style={{
+          fontSize: "3rem",
+          marginBottom: "20px",
+          textShadow: "2px 2px 5px #7A4D3B", // Brown shadow for depth
+          letterSpacing: "2px",
+        }}
+      >
+        🤠 Cyber Sheriff Cracker 🤠
       </h1>
-      <p style={{ fontSize: "1.2rem", marginBottom: "20px" }}>
-        Enter a 4-word password (space-separated) to crack:
+      <p
+        style={{
+          fontSize: "1.2rem",
+          marginBottom: "20px",
+          color: "#F7D08A", // Cream color for text
+        }}
+      >
+        Enter a 4-word password to crack, partner:
       </p>
       <input
         type="text"
@@ -110,11 +123,12 @@ const App = () => {
           width: "300px",
           padding: "10px",
           fontSize: "1rem",
-          border: "2px solid #00ffcc",
+          border: "2px solid #F7D08A", // Cream border
           borderRadius: "5px",
-          background: "transparent",
-          color: "#00ffcc",
+          background: "#A6C9E2", // Light blue background
+          color: "#7A4D3B", // Brown text
           outline: "none",
+          fontFamily: "'Courier New', monospace",
         }}
       />
       <br />
@@ -125,18 +139,19 @@ const App = () => {
         style={{
           padding: "10px 20px",
           fontSize: "1rem",
-          background: "#00ffcc",
-          color: "#1e1e2f",
-          border: "none",
+          background: "#F7D08A", // Cream button background
+          color: "#7A4D3B", // Brown text
+          border: "2px solid #7A4D3B", // Brown border
           borderRadius: "5px",
           cursor: "pointer",
-          boxShadow: "0 0 10px #00ffcc",
+          boxShadow: "0 0 10px #F7D08A", // Cream glow
           transition: "background 0.3s ease",
+          fontFamily: "'Courier New', monospace",
         }}
-        onMouseOver={(e) => (e.target.style.background = "#00ccaa")}
-        onMouseOut={(e) => (e.target.style.background = "#00ffcc")}
+        onMouseOver={(e) => (e.target.style.background = "#A6C9E2")} // Light blue on hover
+        onMouseOut={(e) => (e.target.style.background = "#F7D08A")} // Back to cream
       >
-        {isCracking ? "🔓 Cracking..." : "🔑 Crack Password"}
+        {isCracking ? "🔓 Crackin’..." : "🔑 Crack Password"}
       </button>
       <br />
       <br />
@@ -144,8 +159,8 @@ const App = () => {
         style={{
           marginTop: "20px",
           fontSize: "1.2rem",
-          color: "#00ffcc",
-          textShadow: "0 0 10px #00ffcc",
+          color: "#F7D08A", // Cream text
+          textShadow: "1px 1px 3px #7A4D3B", // Brown shadow
         }}
       >
         {result}
@@ -155,8 +170,8 @@ const App = () => {
           style={{
             marginTop: "20px",
             fontSize: "1.2rem",
-            color: "#00ffcc",
-            textShadow: "0 0 10px #00ffcc",
+            color: "#F7D08A", // Cream text
+            textShadow: "1px 1px 3px #7A4D3B", // Brown shadow
           }}
         >
           ⏱️ Time Elapsed: {timeElapsed} seconds
@@ -167,8 +182,8 @@ const App = () => {
           style={{
             marginTop: "20px",
             fontSize: "1.2rem",
-            color: "#00ffcc",
-            textShadow: "0 0 10px #00ffcc",
+            color: "#F7D08A", // Cream text
+            textShadow: "1px 1px 3px #7A4D3B", // Brown shadow
           }}
         >
           🕒 Total Time Taken: {totalTime} seconds
